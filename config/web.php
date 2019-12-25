@@ -11,9 +11,17 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'v1' => [
+            'basePath' => '@app/modules/v1',
+            'class' => 'app\modules\v1\Module',
+        ],
+    ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
             'cookieValidationKey' => 'doEs26EoF9nbnUfyADFiykgy78Cc8FMy',
         ],
         'cache' => [
@@ -42,15 +50,24 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
+
             'rules' => [
+                ['class' => 'yii\rest\UrlRule',
+                 'controller' => ['v1/post'],
+                 'except' => ['delete', 'create', 'update'],
+                 'extraPatterns' => [
+                    'GET <id>' => 'index',
+                    ],
+                ],
             ],
+
         ],
-        */
+        'mongodb' => $db,
     ],
     'params' => $params,
 ];
