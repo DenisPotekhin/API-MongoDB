@@ -1,34 +1,60 @@
 <p align="center">
-    <h1 align="center">REST Backend API</h1>
-    <h3 align="center">According to specification http://api.programator.sk/</h3>
+    <h1 align="center">RESTful API метод согласно спецификации</h1>
+    <a href="https://bit.ly/2McIjwD">https://bit.ly/2McIjwD</a>
     <br>
 </p>
 
 
 
 
-USAGE
+ИСПОЛЬЗОВАНИЕ
 ------------
 
 <ul>
-<li>git clone https://github.com/DenisPotekhin/BART-API.git</li>
+<li>git clone <a href="https://github.com/DenisPotekhin/API-MongoDB.git">https://github.com/DenisPotekhin/API-MongoDB.git</a></li>
 <li>composer update</li>
-<li>create database and create tables from loq.sql</li>
+<li>use test dump DB</li>
 <li>edit the file `config/db.php` with real data</li>
 <li>see examples in 'examples' folder</li>
 <li>send requests</li>
 </ul>
 
 
-API supports the following request types
+<pre>
+Доступный метод
+GET /api/v1/posts - Получить список постов
 ------------
 
-<ul>
-<li>GET /galleries: index all galleries with images;</li>
-<li>POST /galleries ('name' = gallery name): create new gallery;</li>
-<li>GET /galleries/{path}: index gallery with images in gallery;</li>
-<li>POST /galleries/{path}  (key = 'image', value = file): upload image in gallery;</li>
-<li>DELETE /galleries/{path}: delete gallery with name = 'path';</li>
-<li>DELETE /galleries/{path}/{filename}: delete image in gallery 'path' with name = 'filename';</li>
-<li>GET /images/{width}x{height}/{path}/{name}: preview image generation, with width and height;</li>
-</ul>
+успешный ответ:
+HTTP - код: 200
+{
+   "status": "Success",
+   "message": "Успешно",
+   "data": { 
+        "posts": [...],
+    }
+}, пример содержимого posts:
+        {
+        “id”: “5cf0029caff5056591b0ce7d”,
+        “place”: {...},
+        “user”: {...},
+        “text”: “Уютная и домашняя сеть кафе. В какое из ваших кафе не пришел, всегда чувствую себя как дома”,
+        “timePassed”: 11522
+        }
+        пример содержимого user:
+            {
+            “id”: “5cf0029caff5056591b0ce7d”,
+            “firstName”: “Иммануил”,
+            "secondName: "Кант"
+            }
+        пример содержимого place:
+            {
+            “id”: “5cf0029caff5056591b0ce7d”,
+            “name”: “Burger King”,
+            “city”: “Москва”,
+            “street”: “Большая Черкизовская”,
+            “category”: “Ресторан”
+            }
+
+
+</pre>

@@ -61,12 +61,6 @@ $config = [
                 ['class' => 'yii\rest\UrlRule',
                  'controller' => ['v1/post'],
                  'except' => ['delete', 'create', 'update'],
-  //               'extraPatterns' => [
-  //                      'GET <userId>/<offset:\d+>/<limit:\d+>' => 'index',
-//                        'pattern' => 'post/<id>/<offset:\d+>/<limit:\d+>',
-//                        'route' => 'post/index',
-//
-    //             ],
                 ],
             ],
 
