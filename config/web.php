@@ -32,7 +32,8 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' =>
+             'v1/post/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -60,9 +61,12 @@ $config = [
                 ['class' => 'yii\rest\UrlRule',
                  'controller' => ['v1/post'],
                  'except' => ['delete', 'create', 'update'],
-                 'extraPatterns' => [
-                    'GET <id>' => 'index',
-                    ],
+  //               'extraPatterns' => [
+  //                      'GET <userId>/<offset:\d+>/<limit:\d+>' => 'index',
+//                        'pattern' => 'post/<id>/<offset:\d+>/<limit:\d+>',
+//                        'route' => 'post/index',
+//
+    //             ],
                 ],
             ],
 

@@ -19,26 +19,50 @@ class PostController  extends \yii\rest\Controller
      *
      * @return string
      */
-    public function actionIndex($id)
+    public function actionIndex()
     {
-        $modelClass = $this->modelClass;
-        $query = $modelClass::findOne(['_id' => $id]);
+        $request = Yii::$app->request;
+        $userId = $request->getBodyParam('userId');
+        $limit = $request->getBodyParam('limit', 20);
+        $offset = $request->getBodyParam('offset', 0);
 
-//        $query = new Query;
-//        $row = $query->from('posts')
-//            ->where(['_id' => $id]) // implicit typecast to [[\MongoDB\BSON\ObjectID]]
-//            ->one();
+        $modelClass = $this->modelClass;
+        $query = new Query;
+        try {
+        $query = $modelClass::find()->where(['userId' => $userId])->offset($offset)->limit($limit)->all();
         if ($query) {
             Yii::$app->response->statusCode = 200;
             $response = [
-                'posts' => $query,
+                'status' => 'Success',
+                'message'=> 'Успешно',
+                'data' => $query,
             ];
         } else {
+            Yii::$app->response->statusCode = 404;
+            $response = [
+                'status' => 'RecordNotFound',
+                'message'=> 'Запись не найдена',
+                'data' => [],
+            ];
+        }
+        } catch (Exception $exception) {
             Yii::$app->response->statusCode = 500;
             $response = [
-                'HTTP status code 500' => 'Nedefinovaná chyba',
+                'status' => 'GeneralInternalError',
+                'message'=> 'Произошла ошибка',
+                'data' => [],
             ];
         }
         return $response;
+    }
+
+    public function actionError()
+    {
+        Yii::$app->response->statusCode = 404;
+        return [
+            'status' => 'UrlNotFound',
+            "message"=> 'URL не найден',
+            'data' => [],
+        ];
     }
 }
