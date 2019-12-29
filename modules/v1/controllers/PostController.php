@@ -5,17 +5,29 @@ namespace app\modules\v1\controllers;
 
 use Yii;
 use yii\rest\Controller;
-use yii\mongodb\Query;
 use Exception;
+use yii\web\Response;
 
 class PostController  extends Controller
 {
     public $modelClass = 'app\modules\v1\models\Post';
 
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['contentNegotiator'] = [
+            'class' => 'yii\filters\ContentNegotiator',
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+            ]
+        ];
+        return $behaviors;
+    }
+
     public function actionIndex()
     {
         $request = Yii::$app->request;
-        $userId = $request->getBodyParam('userId');
+        $userId = $request->get('userId') ? $request->get('userId') : $request->getBodyParam('userId');
         if (!$userId) {
             Yii::$app->response->statusCode = 400;
             return [
@@ -24,11 +36,11 @@ class PostController  extends Controller
                 'data' => [],
             ];
         }
-        $limit = $request->getBodyParam('limit', 20);
-        $offset = $request->getBodyParam('offset', 0);
+        $limit = $request->get('limit', 20);
+        $offset = $request->get('offset', 0);
 
         $modelClass = $this->modelClass;
-        $query = new Query;
+        //$query = new Query;
         try {
             $query = $modelClass::find()->where(['userId' => $userId])->offset($offset)->limit($limit)->all();
             if ($query) {
