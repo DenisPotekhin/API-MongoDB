@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center">RESTful API метод согласно спецификации</h1>
+    <h1 align="center">REST API according to specification</h1>
     <a href="https://bit.ly/2McIjwD">https://bit.ly/2McIjwD</a>
     <br>
 </p>
@@ -7,7 +7,7 @@
 
 
 
-ИСПОЛЬЗОВАНИЕ
+USAGE
 ------------
 
 <ul>
@@ -20,20 +20,22 @@
 </ul>
 
 
-<pre>
-Доступный метод
-GET /api/v1/posts - Получить список постов
-------------
+<h3>API supports the following request</h3>
+<h4>GET /api/v1/posts - Index posts</h4>
 
-успешный ответ:
-HTTP - код: 200
+<pre>
+Example request:
+https://api/v1/posts?limit=3&userId=5cf0029caff5056591b0ce7d
+
+Success response:
+HTTP - code: 200
 {
    "status": "Success",
    "message": "Успешно",
    "data": { 
         "posts": [...],
     }
-}, пример содержимого posts:
+}, example posts:
         {
         “id”: “5cf0029caff5056591b0ce7d”,
         “place”: {...},
@@ -41,13 +43,13 @@ HTTP - код: 200
         “text”: “Уютная и домашняя сеть кафе. В какое из ваших кафе не пришел, всегда чувствую себя как дома”,
         “timePassed”: 11522
         }
-        пример содержимого user:
+        example user:
             {
             “id”: “5cf0029caff5056591b0ce7d”,
             “firstName”: “Иммануил”,
             "secondName: "Кант"
             }
-        пример содержимого place:
+        example place:
             {
             “id”: “5cf0029caff5056591b0ce7d”,
             “name”: “Burger King”,
@@ -56,5 +58,40 @@ HTTP - код: 200
             “category”: “Ресторан”
             }
 
+Error responses:
+HTTP - code: 400 (Bad request)
+    {
+	    “status”: “FieldRequired”,
+	    “message”: “Поле не может быть пустым”,
+	    “data”: {
+		    “fields”: [“field_name”]
+        }
+    }
+HTTP - code: 400 (Bad request)
+    {
+    	“status”: “FieldInvalid”,
+    	“message”: “Поле содержит недопустимое значение”,
+    	“data”: {
+    		“fields”: [“field_name”, “another_field”]
+    	}
+    }
+HTTP - code: 404 (Not Found)
+    {
+    	“status”: “RecordNotFound”,
+    	“message”: “Запись не найдена”,
+    	“data”: {}
+    }
+HTTP - code: 404 (Not Found)
+    {
+    	“status”: “UrlNotFound”,
+        “message”: “URL не найден”,
+        “data”: {}
+    }
+HTTP - code: 500 (Internal Server Error)
+    {
+    	 “status”: “GeneralInternalError”,
+         “message”: “Произошла ошибка”,
+         “data”: {}
 
+    }
 </pre>
