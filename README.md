@@ -1,6 +1,6 @@
 <p align="center">
     <h1 align="center">REST API according to specification</h1>
-    <a href="https://bit.ly/2McIjwD">https://bit.ly/2McIjwD</a>
+    <a href="https://bit.ly/2McIjwD" align="center" >https://bit.ly/2McIjwD</a>
     <br>
 </p>
 
@@ -14,7 +14,7 @@ USAGE
 <li>git clone <a href="https://github.com/DenisPotekhin/API-MongoDB.git">https://github.com/DenisPotekhin/API-MongoDB.git</a></li>
 <li>composer update</li>
 <li>use test dump DB</li>
-<li>edit the file `config/db.php` with real data</li>
+<li>edit the file 'config/db.php' with real data</li>
 <li>see examples in 'examples' folder</li>
 <li>send requests</li>
 </ul>

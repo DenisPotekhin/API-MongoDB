@@ -4,4 +4,7 @@ return [
     'adminEmail' => 'admin@example.com',
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',
+    'requiredApiParam' => ['userId', ],
+    'limit' => 20,
+    'offset' => 0,
 ];
