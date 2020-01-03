@@ -1,18 +1,24 @@
 <?php
 declare(strict_types = 1);
+use \yii\web\Request;
 
-
-function getApiResponse(int $code, string $status, string $message, array $data = []): array
+function getApiResponse(
+    int $code,
+    string $status,
+    string $message,
+    array $data = []
+): array
 {
     Yii::$app->response->statusCode = $code;
+
     return [
         'status' => $status,
         'message'=> $message,
-        'data' => $data,
+        'data' => $data
     ];
 }
 
-function getEmptyFields(\yii\web\Request $request): array
+function getEmptyFields(Request $request): array
 {
     $fields = [];
     foreach (Yii::$app->params['requiredApiParam'] as $requiredParam) {
@@ -20,18 +26,23 @@ function getEmptyFields(\yii\web\Request $request): array
             $fields[] = $requiredParam;
         }
     }
+
     return [
-        'fields' => $fields,
+        'fields' => $fields
     ];
 }
 
-function getQueryParams(\yii\web\Request $request): array
+function getQueryParams(Request $request): array
 {
     $queryParams = [];
     foreach (Yii::$app->params['requiredApiParam'] as $requiredParam) {
         $queryParams['query'][$requiredParam] = $request->get($requiredParam);
     }
-    $queryParams['limit'] = $request->get('limit', Yii::$app->params['limit']);
-    $queryParams['offset'] = $request->get('offset', Yii::$app->params['offset']);
+
+    $queryParams['limit'] =
+        $request->get('limit', Yii::$app->params['limit']);
+    $queryParams['offset'] =
+        $request->get('offset', Yii::$app->params['offset']);
+
     return $queryParams;
 }
